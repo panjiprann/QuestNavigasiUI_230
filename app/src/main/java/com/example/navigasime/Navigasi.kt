@@ -1,7 +1,9 @@
 package com.example.navigasime
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -13,34 +15,37 @@ enum class Navigasi {
     Detail
 }
 
-@composable
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun DataApp(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier
-){
-    Scaffold { isiRuang->
+) {
+    Scaffold { isiRuang ->
         NavHost(
             navController = navController,
-            startDestination = Navigasi.Formulir,
-
-            modifier = Modifier.padding(paddingValues= isiRuang)){
-            composable(route = Navigasi.Formulir.name){
+            startDestination = Navigasi.Formulir.name.toString(),
+            modifier = Modifier.padding(paddingValues = isiRuang)
+        ) {
+            composable(route = Navigasi.Formulir.name) {
                 FormIsian(
-                    onSubmitButton = {
-                    navController.navigate(Navigasi.Detail.name)
+
+                    OnSubmitBtnClick = {
+                        navController.navigate(Navigasi.Detail.name)
                     }
                 )
             }
-            composable(route = Navigasi.Detail.name){
-                TampilanData(
-                    onBackBtnClick = {cancelAndBackToFormulir(navController)}
+            composable(route = Navigasi.Detail.name) {
+
+                TampilData(
+                    onBackBtnClick = { cancelAndBackToFormulir(navController) }
                 )
             }
         }
     }
 }
+
 private fun cancelAndBackToFormulir(
     navController: NavHostController
-){
-    navController.popBackStack(route=Navigasi.Formulir.name, inclusive = false)
+) {
+    navController.popBackStack(route = Navigasi.Formulir.name, inclusive = false)
 }
