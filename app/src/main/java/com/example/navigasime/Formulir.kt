@@ -3,9 +3,13 @@ package com.example.navigasime
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedTextField
@@ -55,8 +59,8 @@ fun FormIsian(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = nama, // Menggunakan state
-                onValueChange = { nama = it }, // Memperbarui state
+                value = nama,
+                onValueChange = { nama = it },
                 singleLine = true,
                 modifier = Modifier
                     .padding(top = 20.dp)
@@ -68,14 +72,14 @@ fun FormIsian(
                 modifier = Modifier
                     .padding(all = 20.dp)
                     .width(250.dp),
-                thickness = 1.dp, // Perbaikan sintaks
+                thickness = 1.dp,
                 color = Color.Red
             )
 
             Row {
                 jenisK.forEach { item ->
                     Row(
-                        // Modifier untuk membuat seluruh baris bisa diklik
+
                         modifier = Modifier.selectable(
                             selected = (jenisKelamin == item),
                             onClick = { jenisKelamin = item }
@@ -83,8 +87,8 @@ fun FormIsian(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (jenisKelamin == item), // Menggunakan state
-                            onClick = { jenisKelamin = item } // Memperbarui state
+                            selected = (jenisKelamin == item),
+                            onClick = { jenisKelamin = item }
                         )
                         Text(text = item)
                     }
@@ -100,13 +104,25 @@ fun FormIsian(
             )
 
             OutlinedTextField(
-                value = alamat, // Menggunakan state
-                onValueChange = { alamat = it }, // Memperbarui state
+                value = alamat,
+                onValueChange = { alamat = it },
                 singleLine = true,
                 modifier = Modifier
                     .width(width = 250.dp),
                 label = { Text(text = "Alamat") },
             )
+
+
+            Spacer(modifier = Modifier.height(height = 30.dp))
+
+            Button(
+                modifier = Modifier.fillMaxWidth(fraction = 1f),
+                onClick = OnSubmitBtnClick
+            ) {
+
+                Text(text = "Submit")
+            }
+
         }
     }
 }
